@@ -43,6 +43,9 @@ jobs:
         with:
           dotnet-version: '5.0.x'
           
+      - name: Clean
+        run: dotnet clean ./NistagramBackend/NistagramBackend.sln --configuration Release && dotnet nuget locals all --clear
+          
       - name: Build
         run: dotnet build -c Release --no-restore
         
