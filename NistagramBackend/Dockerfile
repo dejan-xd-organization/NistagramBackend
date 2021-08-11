@@ -9,8 +9,8 @@ WORKDIR /src
 COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 COPY . .
-WORKDIR "/src/NistagramBackend"
-RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
+WORKDIR "/src/."
+RUN dotnet build "NistagramBackend/NistagramBackend.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
