@@ -47,7 +47,7 @@ jobs:
         run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
-        run: mbbuild.exe /t:build
+        run: msbuild.exe /t:build
         
       - name: Test
         run: dotnet test -c Release --no-build 
