@@ -40,8 +40,16 @@ jobs:
         with:
           dotnet-version: '5.0.x'
           
+<<<<<<< HEAD
       - name: Build
         run: dotnet build -c Release --no-restore
+=======
+      - name: Install dependencies
+        run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+          
+      - name: Build $(buildConfiguration)
+        run: dotnet build NistagramBackend\NistagramBackend.csproj --configuration $(buildConfiguration)
+>>>>>>> parent of 2a23d6b (Update CI.yml)
         
       - name: Test
         run: dotnet test -c Release --no-build
