@@ -43,8 +43,8 @@ jobs:
         with:
           dotnet-version: '5.0.x'
           
-      - name: Clean
-        run: dotnet clean ./NistagramBackend.sln --configuration Debug && dotnet nuget locals all --clear
+      - name: Install dependencies
+        run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
         run: dotnet build -c Release --no-restore
