@@ -45,10 +45,10 @@ jobs:
           dotnet-version: '5.0.x'
           
       - name: Install dependencies
-        run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
         run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
         
       - name: Test
-        run: dotnet test -c Release --no-build 
+        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
