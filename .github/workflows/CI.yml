@@ -47,7 +47,7 @@ jobs:
         run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
-        run: dotnet build -c Release --no-restore
+        run: dotnet build -c Release --no-restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
         
       - name: Test
-        run: dotnet test -c Release --no-build
+        run: dotnet test -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false #-c Release --no-build 
