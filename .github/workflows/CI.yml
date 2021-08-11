@@ -47,7 +47,7 @@ jobs:
         run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
-        run: msbuild.exe /t:build
+        run: MSBuild.exe NistagramBackend.sln -t:rebuild
         
       - name: Test
         run: dotnet test -c Release --no-build 
