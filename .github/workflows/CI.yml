@@ -10,13 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  cancel:
-      name: 'Cancel Other Workflow'
-      runs-on: ubuntu-latest
-      steps:
-        - uses: styfle/cancel-workflow-action@0.9.0
-          with:
-            access_token: ${{ github.token }}
   CI:
     runs-on: ubuntu-latest
     steps:
@@ -54,7 +47,7 @@ jobs:
         run: dotnet restore -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
-        run: dotnet build -nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+        run: dotnet build --no-restore
         
       - name: Test
         run: dotnet test -c Release --no-build 
