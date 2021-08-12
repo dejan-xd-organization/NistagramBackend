@@ -11,7 +11,8 @@ RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 COPY . .
 WORKDIR "/src/NistagramBackend"
 #RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
-RUN docker build -t NistagramBackend -f NistagramBackend/Dockerfile .
+#RUN docker build -t NistagramBackend -f NistagramBackend/Dockerfile .
+RUN dotnet build -t NistagramBackend -f NistagramBackend/Dockerfile .
 
 FROM build AS publish
 RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
