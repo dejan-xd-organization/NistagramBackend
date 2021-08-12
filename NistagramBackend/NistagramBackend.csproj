@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<AddSyntheticProjectReferencesForSolutionDependencies>false</AddSyntheticProjectReferencesForSolutionDependencies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,12 +20,5 @@
 	  <SpecificVersion>False</SpecificVersion>
 	</Reference>
   </ItemGroup>-->
-
-
-	<Target Name="GetTargetPath" Returns="@(_FakeOutputPath)">
-		<ItemGroup>
-			<_FakeOutputPath Include="$(MSBuildProjectDirectory)\$(PackageOutputPath)\$(AssemblyName).UNK" />
-		</ItemGroup>
-	</Target>
 
 </Project>
