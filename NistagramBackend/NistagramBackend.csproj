@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="NistagramUtils">
-      <HintPath>..\..\NistagramUtils\bin\release\net5.0\NistagramUtils.dll</HintPath>
+      <HintPath>..\..\NistagramUtils\bin\Debug\net5.0\NistagramUtils.dll</HintPath>
 	  <SpecificVersion>False</SpecificVersion>
 	</Reference>
   </ItemGroup>
