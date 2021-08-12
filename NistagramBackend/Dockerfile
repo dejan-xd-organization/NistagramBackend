@@ -6,17 +6,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
+COPY ["./NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
-COPY . .
-WORKDIR "/src/NistagramBackend"
-#RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
-RUN dotnet publish -c release -o /app --no-restore
-
-#FROM build AS publish
-#RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
+COPY . ./
+RUN dotnet publish "NistagramBackend/NistagramBackend.csproj" -c Release -o out 
 
 FROM base AS final
 WORKDIR /app
-COPY --from=build /app ./ .
+COPY --from=base /app/NistagramBackend/out ./
 ENTRYPOINT ["dotnet", "NistagramBackend.dll"]
