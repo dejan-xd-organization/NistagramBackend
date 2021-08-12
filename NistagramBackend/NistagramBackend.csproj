@@ -9,8 +9,15 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
+  <!--<itemgroup>
+    <projectreference include="..\..\nistagramutils\nistagramutils.csproj" />
+  </itemgroup>-->
+
   <ItemGroup>
-    <ProjectReference Include="..\..\NistagramUtils\NistagramUtils.csproj" />
+    <Reference Include="NistagramUtils">
+      <HintPath>..\..\NistagramUtils\bin\release\net5.0\NistagramUtils.dll</HintPath>
+	  <SpecificVersion>False</SpecificVersion>
+	</Reference>
   </ItemGroup>
 
 </Project>
