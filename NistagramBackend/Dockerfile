@@ -11,7 +11,7 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish "NistagramBackend/NistagramBackend.csproj" -c Debug -o out 
 
-FROM base
+FROM base AS final
 WORKDIR /app
 COPY --from=build-env /app/NistagramBackend/out ./
 
