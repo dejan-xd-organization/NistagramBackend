@@ -13,7 +13,7 @@ RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 #RUN dotnet build "NistagramBackend/NistagramBackend.csproj" --no-dependencies
 
 FROM build AS publish
-RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
+RUN dotnet publish "NistagramBackend/NistagramBackend.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
