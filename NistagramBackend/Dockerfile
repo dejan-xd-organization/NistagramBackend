@@ -1,19 +1,22 @@
-# https://hub.docker.com/_/microsoft-dotnet
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /source
-
-# copy csproj and restore as distinct layers
-COPY *.sln .
-COPY NistagramBackend/*.csproj ./NistagramBackend/
-RUN dotnet restore
-
-# copy everything else and build app
-COPY NistagramBackend/. ./NistagramBackend/
-WORKDIR /source/NistagramBackend
+WORKDIR /src
+COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
+RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
+COPY . .
+WORKDIR "/src/NistagramBackend"
+#RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
 RUN dotnet publish -c release -o /app --no-restore
 
-# final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+#FROM build AS publish
+#RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
+
+FROM base AS final
 WORKDIR /app
-COPY --from=build /app ./
+COPY --from=build /app ./ .
 ENTRYPOINT ["dotnet", "NistagramBackend.dll"]
