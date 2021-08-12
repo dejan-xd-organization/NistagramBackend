@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NistagramUtils.Offline.Post;
 using NistagramUtils.Offline.Post.Model;
-using Microsoft.Practices.Unity;
 
 namespace NistagramBackend.Controllers
 {
