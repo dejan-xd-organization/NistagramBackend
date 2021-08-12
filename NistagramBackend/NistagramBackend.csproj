@@ -9,8 +9,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\NistagramUtils\NistagramUtils.csproj" />
-  </ItemGroup>
-
 </Project>
