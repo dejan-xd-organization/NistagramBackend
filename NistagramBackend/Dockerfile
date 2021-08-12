@@ -10,7 +10,7 @@ COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "NistagramBackend/NistagramBackend.csproj" --configuration release
+RUN dotnet build "NistagramBackend/NistagramBackend.csproj" --no-dependencies
 
 FROM build AS publish
 RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
