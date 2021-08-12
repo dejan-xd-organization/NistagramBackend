@@ -48,7 +48,7 @@ jobs:
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
           
       - name: Build
-        run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
+        run: dotnet build
         
       - name: Test
-        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
+        run: dotnet test NistagramBackend/NistagramBackend.csproj
