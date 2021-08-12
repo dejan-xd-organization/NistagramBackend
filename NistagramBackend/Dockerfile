@@ -8,9 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "NistagramBackend/NistagramBackend.csproj" --no-dependencies
+#COPY . .
+#WORKDIR "/src/."
+#RUN dotnet build "NistagramBackend/NistagramBackend.csproj" --no-dependencies
 
 FROM build AS publish
 RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
