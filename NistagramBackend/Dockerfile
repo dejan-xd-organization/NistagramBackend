@@ -7,11 +7,11 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
-COPY ["NistagramUtils/NistagramUtils.csproj", "NistagramUtils/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 COPY . .
 WORKDIR "/src/NistagramBackend"
-RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
+#RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
+RUN docker build -t NistagramBackend -f NistagramBackend/Dockerfile .
 
 FROM build AS publish
 RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
