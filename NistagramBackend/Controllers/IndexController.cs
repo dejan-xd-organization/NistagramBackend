@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NistagramBackend.Services.Intefrace;
+using NistagramSQLConnection.Service.Interface;
+using NistagramUtils.DTO;
 using NistagramUtils.Offline.Post;
 using NistagramUtils.Offline.Post.Model;
 
@@ -10,18 +13,18 @@ namespace NistagramBackend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class IndexController : Controller
+    public class IndexController : ControllerBase
     {
 
-        public IPostServices PostServices;
+        private IIndexService _indexService;
 
-        public IndexController(IPostServices postServices)
+        public IndexController(IIndexService indexService)
         {
-            PostServices = postServices;
+            _indexService = indexService;
         }
 
         [HttpGet]
-        [HttpGet("allOptions")]
+        [Route("/[action]")]
         public Dictionary<String, List<String>> GetAllOptions()
         {
             Dictionary<String, List<String>> newOption = new Dictionary<string, List<string>>();
@@ -33,19 +36,18 @@ namespace NistagramBackend.Controllers
         }
 
         [HttpGet]
-        [HttpGet("allOfflinePosts")]
+        [Route("/[action]")]
         public HashSet<OfflinePost> GetAllOfflinePosts()
         {
-            HashSet<OfflinePost> offlinePosts = PostServices.GetAllOfflinePosts();
-            return offlinePosts;
+            //HashSet<OfflinePost> offlinePosts = _userService.GetAllOfflinePosts();
+            return null;
         }
 
         [HttpGet]
-        [HttpGet("allNewUsers")]
-        public HashSet<User> GetAllNewUsers()
+        [Route("/[action]")]
+        public List<UserDTO> GetAllNewUsers()
         {
-            HashSet<User> newUsers = PostServices.GetAllNewUsers();
-            return newUsers;
+            return _indexService.GetAllUsers();
         }
 
 
