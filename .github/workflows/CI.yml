@@ -39,31 +39,31 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-#  Dotnet:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Check Out Repo Dotnet
-#      - uses: actions/checkout@v2
-#      
-#      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-#        uses: actions/setup-dotnet@v1
-#        with:
-#          dotnet-version: '5.0.x'
-#          
-#      - name: Install dependencies
-#        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
-#          
-#      #- name: Build
-#        #run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
-#        
- #     - name: Test
- #       run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
+  Dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo Dotnet
+      - uses: actions/checkout@v2
+      
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+          
+      - name: Install dependencies
+        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+          
+      #- name: Build
+        #run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
+        
+      - name: Test
+        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           
   SonarCloud:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Repo SonarCloud
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
         with:
           # Disabling shallow clone is recommended for improving relevancy of reporting
           fetch-depth: 0
