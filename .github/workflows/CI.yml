@@ -90,6 +90,6 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_NistagramBackend" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build G:\MAC\DevOpsProject\NistagramBackend\NistagramBackend.sln
+          msbuild G:\MAC\DevOpsProject\NistagramBackend\NistagramBackend.sln /t:Clean;Rebuild
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
     
