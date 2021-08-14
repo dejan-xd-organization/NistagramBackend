@@ -58,18 +58,18 @@ jobs:
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           
-  SonarCloud:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo 
-      - uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
+  #SonarCloud:
+   # runs-on: ubuntu-latest
+    #steps:
+     # - name: Check Out Repo 
+      #- uses: actions/checkout@v2
+       # with:
+        #  # Disabling shallow clone is recommended for improving relevancy of reporting
+         # fetch-depth: 0
           
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #- name: SonarCloud Scan
+      #  uses: sonarsource/sonarcloud-github-action@master
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     
