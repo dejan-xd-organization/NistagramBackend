@@ -58,7 +58,6 @@ jobs:
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           
-          
   SonarCloud:
     runs-on: ubuntu-latest
     steps:
