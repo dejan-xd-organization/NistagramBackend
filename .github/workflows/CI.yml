@@ -84,7 +84,7 @@ jobs:
         SourceRevisionId: '${{ github.sha }}'
         VersionSuffix: 'pr-${{github.event.number}}.${{ github.run_number }}'
         Configuration: Release
-        SolutionPath: src\NistagramBackend.sln
+        SolutionPath: NistagramBackend.sln
     steps:
     - uses: actions/checkout@v2   
     - name: Setup .NET Core
