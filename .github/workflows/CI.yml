@@ -52,12 +52,9 @@ jobs:
           
       - name: Install dependencies
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
-      
-      - name: Github action build chain. Cross-repo builds
-        uses: kiegroup/github-action-build-chain@v2.4
 
-      #- name: Build
-        #run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
+      - name: Build
+        run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release --no-dependencies
         
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
