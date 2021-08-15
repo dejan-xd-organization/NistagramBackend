@@ -10,9 +10,28 @@ on:
   workflow_dispatch:
 
 jobs:
+  Dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo Dotnet
+        uses: actions/checkout@v2
+      
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+          
+      - name: Install dependencies
+        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+
+      - name: Build
+        run: dotnet build NistagramBackend.sln
+        
+      - name: Test
+        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
+        
   Docker:
     runs-on: ubuntu-latest
-   
     steps:
       - name: Check Out Repo Docker
         uses: actions/checkout@v2
@@ -39,58 +58,45 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-  Dotnet:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo Dotnet
-        uses: actions/checkout@v2
-      
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.x'
-          
-      - name: Install dependencies
-        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
 
-      - name: Build
-        run: dotnet build NistagramBackend.sln
-        
-      - name: Test
-        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           
-  SonarCloud:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repo SonarCloud
-        uses: actions/checkout@v2
-        with:
-          # Disabling shallow clone is recommended for improving relevancy of reporting
-          fetch-depth: 0
-          
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-
-  Test:
+  SonarScanner:
+    name: Build
     runs-on: windows-latest
     steps:
-      - name: Check Out Repo
-        uses: actions/checkout@v2
-      
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
         with:
-          dotnet-version: '5.0.x'
-     
-      - name: Restore dependencies
-        run: nuget restore NistagramBackend/NistagramBackend.sln
-        
-      - name: Build
-        run: dotnet build NistagramBackend/NistagramBackend.sln --configuration Release --no-restore -o package
-        
-      - name: Build the Solution
-        run: msbuild.exe NistagramBackend.sln
+          java-version: 1.11
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~\sonar\cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache SonarCloud scanner
+        id: cache-sonar-scanner
+        uses: actions/cache@v1
+        with:
+          path: .\.sonar\scanner
+          key: ${{ runner.os }}-sonar-scanner
+          restore-keys: ${{ runner.os }}-sonar-scanner
+      - name: Install SonarCloud scanner
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.sonar\scanner -ItemType Directory
+          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        shell: powershell
+        run: |
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_AgentAPP" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
