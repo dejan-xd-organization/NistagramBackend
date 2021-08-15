@@ -87,8 +87,11 @@ jobs:
       - name: setUp NuGet
         uses: NuGet/setup-nuget@v1
         
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+        
       - name: Restore NuGet packages
         run: nuget restore NistagramBackend.sln
         
       - name: Build the Solution
-        run: msbuild NistagramBackend.sln /t:NistagramBackend
+        run: msbuild.exe NistagramBackend.sln
