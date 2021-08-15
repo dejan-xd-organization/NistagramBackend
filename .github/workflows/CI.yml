@@ -102,7 +102,7 @@ jobs:
           
           
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Test with dotnet
         run: dotnet test --logger trx --results-directory "TestResults"
       - name: Upload dotnet test results
