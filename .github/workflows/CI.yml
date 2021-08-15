@@ -87,9 +87,7 @@ jobs:
           dotnet-version: '5.0.x'
      
       - name: Restore dependencies
-        run: |
-          cd ./NistagramBackend
-          dotnet restore
+        run: nuget restore dejan-xd-organization/MyProject.sln
         
       - name: Build
         run: dotnet build NistagramBackend/NistagramBackend.sln --configuration Release --no-restore -o package
