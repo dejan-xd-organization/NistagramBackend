@@ -98,9 +98,6 @@ jobs:
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
           release_name: Release ${{ steps.tag_version.outputs.new_tag }}
           prerelease: false    
-          
-          
-          
       - name: Install dependencies
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Test with dotnet
@@ -112,6 +109,12 @@ jobs:
           path: TestResults
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
+      - name: Create ci-env.txt in path directory
+        run: 'env | grep GITHUB_ | sort > results/artifacts/ci-env.txt'
+      - uses: actions/upload-artifact@v2
+        with:
+            name: artifacts_from_ubuntu
+            path: results/artifacts/
         
   Deploy:
     runs-on: ubuntu-latest
@@ -122,7 +125,7 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v1
         with:
-          name: deploy_dist
+          name: dotnet-results
 
 
   Docker:
