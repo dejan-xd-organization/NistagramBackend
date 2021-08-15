@@ -129,6 +129,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: artifacts_from_ubuntu
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ needs.tag_version.outputs.tag }}
+          draft: true
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
