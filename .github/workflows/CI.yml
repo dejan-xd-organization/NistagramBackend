@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Check Out Repo Dotnet
         uses: actions/checkout@v2
-      - name: .NET Core CLI
-        uses: baruchiro/github-actions@0.0.1
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
