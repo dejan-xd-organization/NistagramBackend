@@ -73,52 +73,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
-  build-extension:
-    runs-on: windows-latest
-    env: 
-        DOTNET_NOLOGO: true
-        DOTNET_CLI_TELEMETRY_OPTOUT: true
-        RepositoryUrl: 'https://github.com/${{ github.repository }}'
-        RepositoryBranch: '${{ github.ref }}'
-        SourceRevisionId: '${{ github.sha }}'
-        VersionSuffix: 'pr-${{github.event.number}}.${{ github.run_number }}'
-        Configuration: Release
-        SolutionPath: NistagramBackend.sln
+
+
+  Test:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2   
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '3.1.x'
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
-    - name: Restore NuGet Packages
-      run: nuget restore $env:SolutionPath
-    - name: Calculate next version
-      uses: cezarypiatek/NextVersionGeneratorAction@0.4
-      with:
-        minor-pattern: '\bAdd\b'
-        patch-pattern: '.*'
-        output-to-env-variable: 'VersionPrefix'
-    - name: Set version for Visual Studio Extension
-      uses: cezarypiatek/VsixVersionAction@1.0
-      with:
-        version: '${{env.VersionPrefix}}+${{env.VersionSuffix}}'
-    - name: Build extension
-      run: msbuild $env:SolutionPath /t:Rebuild
-      env: 
-        DeployExtension: False
-    - name: Test extension
-      run: dotnet test --no-build --verbosity normal $env:SolutionPath
-    - name: Collect artifacts - VSIX
-      uses: actions/upload-artifact@v2
-      with:
-        name: NistagramBackend-VSIX
-        path: src\NistagramBackend.Vsix\bin\Release\NistagramBackend.vsix
-    - name: Collect artifacts - nugets
-      uses: actions/upload-artifact@v2
-      with:
-        name: NistagramBackend-Nugets
-        path: '**/NistagramBackend*.nupkg'
-    
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+      
+      - name: SetUp MSBuild
+        uses: microsoft/setup-msbuild@v1
+        
+      - name: setUp NuGet
+        uses: NuGet/setup-nuget@v1.0.2
+        
+      - name: Restore NuGet packages
+        run: nuget restore NistagramBackend.sln
+        
+      - name: Build the Solution
+        run: msbuild NistagramBackend.sln
