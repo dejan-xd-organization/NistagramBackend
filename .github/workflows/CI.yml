@@ -81,22 +81,14 @@ jobs:
       - name: Check Out Repo
         uses: actions/checkout@v2
       
-      - name: SetUp MSBuild
-        uses: microsoft/setup-msbuild@v1
-        
-      - name: setUp NuGet
-        uses: NuGet/setup-nuget@v1
-        
-      - name: Navigate to Workspace
-        run: cd $GITHUB_WORKSPACE
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
      
-      - name: Restore NuGet packages
+      - name: Install dependencies
         run: dotnet restore -s G:\MAC\DevOpsProject\NistagramSQLConnection -s G:\MAC\DevOpsProject\NistagramUtils
         
-      - name: Restore NuGet packages
-        run: nuget restore NistagramBackend.sln
-        
-          
       - name: Build
         run: dotnet build NistagramBackend/NistagramBackend.sln --configuration Release --no-restore -o package
         
