@@ -91,4 +91,4 @@ jobs:
         run: nuget restore NistagramBackend.sln
         
       - name: Build the Solution
-        run: msbuild /p:SolutionDir=..//NistagramBackend.sln
+        run: msbuild NistagramBackend.sln /t:NistagramBackend
