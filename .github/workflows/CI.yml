@@ -89,16 +89,13 @@ jobs:
         
       - name: Navigate to Workspace
         run: cd $GITHUB_WORKSPACE
+     
+      - name: Restore NuGet packages
+        run: dotnet restore ./DevOpsProject/NistagramSQLConnection/NistagramSQLConnection.csproj
         
       - name: Restore NuGet packages
         run: nuget restore NistagramBackend.sln
         
-      - name: Restore
-        run: |
-          pwd
-          ls
-          stat -c "%s" DevOpsProject/NistagramBackend/NistagramBackend.csproj
-          dotnet restore NistagramBackend/NistagramBackend.sln
           
       - name: Build
         run: dotnet build NistagramBackend/NistagramBackend.sln --configuration Release --no-restore -o package
