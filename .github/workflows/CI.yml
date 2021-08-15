@@ -102,13 +102,16 @@ jobs:
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Test with dotnet
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release --logger trx --results-directory "TestResults"
-      - name: Upload dotnet test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: dotnet-results
-          path: TestResults
+     # - name: Upload dotnet test results
+        #uses: actions/upload-artifact@v2
+       # with:
+          #name: dotnet-results
+          #path: TestResults
         # Use always() to always run this step to publish test results when there are test failures
-        if: ${{ always() }}
+       # if: ${{ always() }}
+
+      - name: Create directory results/artifacts 
+        run: 'mkdir --parents results/artifacts'
       - name: Create ci-env.txt in path directory
         run: 'env | grep GITHUB_ | sort > results/artifacts/ci-env.txt'
       - uses: actions/upload-artifact@v2
