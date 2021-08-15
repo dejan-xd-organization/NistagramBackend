@@ -85,7 +85,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
         
       - name: setUp NuGet
-        uses: NuGet/setup-nuget@v1.0.2
+        uses: NuGet/setup-nuget@v1
         
       - name: Restore NuGet packages
         run: nuget restore NistagramBackend.sln
