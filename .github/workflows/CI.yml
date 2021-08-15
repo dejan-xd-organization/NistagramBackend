@@ -101,15 +101,13 @@ jobs:
       - name: Install dependencies
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Test with dotnet
-        run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release --logger trx --results-directory "TestResults"
-     # - name: Upload dotnet test results
-        #uses: actions/upload-artifact@v2
-       # with:
-          #name: dotnet-results
-          #path: TestResults
-        # Use always() to always run this step to publish test results when there are test failures
-       # if: ${{ always() }}
-
+        run: dotnet test NistagramBackend/NistagramBackend.csproj --no-restore --no-build --configuration $config --logger:"liquid.md;LogFileName=${{github.workspace}}/${{env.file_name}};Title=${{env.title}};"
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        if: ${{always()}}
+        with:
+          name: 'Test Run'
+          path: ${{github.workspace}}/${{env.file_name}}
       - name: Create directory results/artifacts 
         run: 'mkdir --parents results/artifacts'
       - name: Create ci-env.txt in path directory
@@ -129,19 +127,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: artifacts_from_ubuntu
-      - name: Create release
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ needs.tag_version.outputs.tag }}
-          draft: true
-      - name: Publish
-        uses: softprops/action-gh-release@v1
-        with:
-          files: "App*"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
   Docker:
     runs-on: ubuntu-latest
