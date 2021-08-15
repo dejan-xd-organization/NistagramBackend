@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{always()}}
         with:
-          name: 'Test Run'
+          name: 'test_artifacts'
           path: ${{github.workspace}}/${{env.file_name}}
       - name: Create directory results/artifacts 
         run: 'mkdir --parents results/artifacts'
@@ -138,6 +138,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/backend
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -151,3 +157,33 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+        
+        
+        
+  Container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 15.13.28  # It is recommended to specify specifying version range
+                                      # for semantic-release.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build image
+        run: |
+          docker build -t backend:latest -<<EOF
+          FROM busybox
+          RUN touch abc.txt
+          EOF
+      - name: Upload image
+        uses: ishworkh/docker-image-artifact-upload@v1
+        with:
+          image: "backend:latest"
+      - name: Download image
+        uses: ishworkh/docker-image-artifact-download@v1
+        with:
+          image: "backend:latest"
