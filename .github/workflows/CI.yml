@@ -61,7 +61,6 @@ jobs:
 
           
   SonarScanner:
-    name: Build
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -97,6 +96,6 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_AgentAPP" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build
+          dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
