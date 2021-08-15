@@ -91,7 +91,7 @@ jobs:
         run: cd $GITHUB_WORKSPACE
         
       - name: Restore NuGet packages
-        run: nuget restore NistagramBackend.sln
+        run: dotnet restore
         
       - name: Build the Solution
         run: msbuild.exe NistagramBackend.sln
