@@ -91,7 +91,7 @@ jobs:
         run: cd $GITHUB_WORKSPACE
      
       - name: Restore NuGet packages
-        run: dotnet restore ../NistagramSQLConnection/NistagramSQLConnection.csproj
+        run: dotnet restore -s G:\MAC\DevOpsProject\NistagramSQLConnection -s G:\MAC\DevOpsProject\NistagramUtils
         
       - name: Restore NuGet packages
         run: nuget restore NistagramBackend.sln
