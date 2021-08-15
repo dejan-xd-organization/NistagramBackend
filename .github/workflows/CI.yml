@@ -128,7 +128,13 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v1
         with:
-          name: dotnet-results
+          name: artifacts_from_ubuntu
+      - name: Publish
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "App*"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   Docker:
