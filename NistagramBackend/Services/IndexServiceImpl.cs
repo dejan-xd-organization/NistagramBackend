@@ -11,7 +11,7 @@ namespace NistagramBackend.Services
 {
     public class IndexServiceImpl : IIndexService
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public IndexServiceImpl(IUserService userService)
         {
