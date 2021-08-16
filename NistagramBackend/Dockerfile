@@ -8,14 +8,14 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["./NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
-#COPY . .
-#WORKDIR "/src/NistagramBackend"
-#RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
+COPY . .
+WORKDIR "/src/NistagramBackend"
+RUN dotnet build "NistagramBackend.csproj" -c Release -o /app/build
 
-#FROM build AS publish
-#RUN dotnet publish "NistagramBackend/NistagramBackend.csproj" -c Release -o /app/publish
+FROM build AS publish
+RUN dotnet publish "NistagramBackend.csproj" -c Release -o /app/publish
 
-#FROM base AS final
-#WORKDIR /app
-#COPY --from=publish /app/publish .
-#ENTRYPOINT ["dotnet", "NistagramBackend.dll"]
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "NistagramBackend.dll"]
