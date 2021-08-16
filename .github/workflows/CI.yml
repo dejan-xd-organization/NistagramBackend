@@ -62,7 +62,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_NistagramBackend" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet clean NistagramBackend/NistagramBackend.csproj --configuration release
+          dotnet build NistagramBackend.sln --configuration release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   Artifact:
