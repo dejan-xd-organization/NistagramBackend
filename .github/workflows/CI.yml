@@ -26,6 +26,9 @@ jobs:
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
         
+      - name: a
+        run: ls dist
+        
   SonarCloud:
     runs-on: windows-latest
     steps:
