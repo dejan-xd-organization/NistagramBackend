@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Build
-        run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
+        run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release --output dist
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
         
@@ -122,6 +122,12 @@ jobs:
         with:
             name: artifacts_from_ubuntu
             path: results/artifacts/
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: deploy_dist
+          path: dist
         
   Deploy:
     runs-on: ubuntu-latest
