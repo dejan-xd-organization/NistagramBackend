@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Build
-        run: dotnet build NistagramBackend.sln
+        run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
       - name: Test
         run: dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
         
@@ -62,7 +62,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_AgentAPP" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
+          dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
   Artifact:
