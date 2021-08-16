@@ -20,7 +20,7 @@ jobs:
         with:
           dotnet-version: '5.0.x'
       - name: Install dependencies
-        run: dotnet restore NistagramBackend/NistagramBackend.csproj --configuration release #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
+        run: dotnet restore NistagramBackend/NistagramBackend.csproj #-nowarn:msb3202,nu1503 -p:RestoreUseSkipNonexistentTargets=false
       - name: Build
         run: dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
       - name: Test
@@ -66,8 +66,8 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"dejan-xd-organization_NistagramBackend" /o:"dejan-xd-organization" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet restore NistagramBackend.sln --configuration release
-          dotnet build NistagramBackend.sln --configuration release
+          dotnet restore NistagramBackend/NistagramBackend.csproj
+          dotnet build NistagramBackend/NistagramBackend.csproj --configuration release
           dotnet test NistagramBackend/NistagramBackend.csproj --configuration release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
