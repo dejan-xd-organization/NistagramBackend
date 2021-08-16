@@ -16,7 +16,7 @@ namespace NistagramBackend.Controllers
     public class IndexController : ControllerBase
     {
 
-        private IIndexService _indexService;
+        private readonly IIndexService _indexService;
 
         public IndexController(IIndexService indexService)
         {
@@ -39,8 +39,7 @@ namespace NistagramBackend.Controllers
         [Route("/[action]")]
         public HashSet<OfflinePost> GetAllOfflinePosts()
         {
-            //HashSet<OfflinePost> offlinePosts = _userService.GetAllOfflinePosts();
-            return null;
+            return new HashSet<OfflinePost>(0);
         }
 
         [HttpGet]
