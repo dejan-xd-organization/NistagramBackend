@@ -15,8 +15,8 @@ namespace NistagramBackend.Controllers
     [Route("[controller]")]
     public class LoginController : ControllerBase
     {
-        private IUserService _iUserService;
-        JWTToken jwtToken = new JWTToken();
+        private readonly IUserService _iUserService;
+        private readonly JWTToken jwtToken = new JWTToken();
 
         public LoginController(IUserService iUserService)
         {
