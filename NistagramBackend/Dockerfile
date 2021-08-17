@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
+COPY ["./NistagramBackend/NistagramBackend.csproj", "NistagramBackend/"]
 RUN dotnet restore "NistagramBackend/NistagramBackend.csproj"
 COPY . .
 WORKDIR "/src/NistagramBackend"
