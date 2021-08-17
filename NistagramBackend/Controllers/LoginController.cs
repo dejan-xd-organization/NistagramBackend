@@ -8,6 +8,11 @@ using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.JWT;
+//using NistagramSQLConnection.Model;
+//using NistagramSQLConnection.Service.Interface;
+////using NistagramSQLConnection.Service.Interface;
+//using NistagramUtils.DTO;
+//using NistagramUtils.JWT;
 
 namespace NistagramBackend.Controllers
 {
