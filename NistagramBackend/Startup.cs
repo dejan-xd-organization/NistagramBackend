@@ -18,6 +18,8 @@ using NistagramBackend.Services.Intefrace;
 using NistagramBackend.Services;
 using NistagramSQLConnection.Service.Interface;
 using NistagramSQLConnection.Service;
+using AutoMapper;
+using NistagramUtils.Mapper;
 
 namespace NistagramBackend
 {
@@ -35,6 +37,13 @@ namespace NistagramBackend
         {
             services.AddScoped<IUserService, UserServiceImpl>();
             services.AddScoped<IIndexService, IndexServiceImpl>();
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new SimpleMapper());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddDbContext<DataContext>(options =>
             {
