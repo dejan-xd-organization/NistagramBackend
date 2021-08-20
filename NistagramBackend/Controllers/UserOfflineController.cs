@@ -34,5 +34,13 @@ namespace NistagramBackend.Controllers
             var mapperUser = _mapper.Map<UserDTO[]>(user);
             return JsonConvert.SerializeObject(mapperUser);
         }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public Object FindNewUsers()
+        {
+            List<User> user = _iUserService.FindNewUsers();
+            return JsonConvert.SerializeObject(user);
+        }
     }
 }

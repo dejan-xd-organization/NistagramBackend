@@ -25,6 +25,7 @@ namespace NistagramBackend
 {
     public class Startup
     {
+        readonly private string _myAllow = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -49,8 +50,19 @@ namespace NistagramBackend
             {
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11)));
             });
-            
+
             services.AddMvc();
+
+            services.AddCors(option =>
+            {
+                option.AddPolicy(name: _myAllow, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200/")
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -70,6 +82,8 @@ namespace NistagramBackend
             }
 
             app.UseRouting();
+
+            app.UseCors(_myAllow);
 
             app.UseAuthorization();
 
