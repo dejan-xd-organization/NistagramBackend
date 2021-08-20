@@ -55,11 +55,12 @@ namespace NistagramBackend
 
             services.AddCors(option =>
             {
-                option.AddPolicy(name: _myAllow, builder => {
-                    builder.WithOrigins()
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                option.AddPolicy(name: _myAllow, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200/")
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
                 });
             });
 
