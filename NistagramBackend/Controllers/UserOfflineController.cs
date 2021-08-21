@@ -6,9 +6,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NistagramBackend.Helper;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
+using NistagramBackend.Model;
+using System.Net.Http;
 
 namespace NistagramBackend.Controllers
 {
@@ -16,31 +19,51 @@ namespace NistagramBackend.Controllers
     [Route("[controller]")]
     public class UserOfflineController : ControllerBase
     {
-        private readonly IUserService _iUserService;
-        private readonly IMapper _mapper;
+        OfflineApi api = new OfflineApi();
 
-
-        public UserOfflineController(IUserService iUserService, IMapper mapper)
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<List<Model.UserDTO>> FilterUser(string filter)
         {
-            _iUserService = iUserService;
-            _mapper = mapper;
+            List<Model.UserDTO> userDTO = new List<Model.UserDTO>();
+            HttpClient client = api.Initial();
+            var res = await client.GetAsync("FilterUser?filter=" + filter);
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                userDTO = JsonConvert.DeserializeObject<List<Model.UserDTO>>(response);
+            }
+            return userDTO;
         }
 
         [HttpGet]
         [Route("/[action]")]
-        public Object FilterUser(string filter)
+        public async Task<List<Model.UserDTO>> FindNewUsers()
         {
-            List<User> user = _iUserService.FilterUser(filter);
-            var mapperUser = _mapper.Map<UserDTO[]>(user);
-            return JsonConvert.SerializeObject(mapperUser);
+            List<Model.UserDTO> userDTO = new List<Model.UserDTO>();
+            HttpClient client = api.Initial();
+            var res = await client.GetAsync("FindNewUsers");
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                userDTO = JsonConvert.DeserializeObject<List<Model.UserDTO>>(response);
+            }
+            return userDTO;
         }
 
         [HttpGet]
         [Route("/[action]")]
-        public Object FindNewUsers()
+        public async Task<List<Model.WallPostDTO>> GetAllPosts()
         {
-            List<User> user = _iUserService.FindNewUsers();
-            return JsonConvert.SerializeObject(user);
+            List<Model.WallPostDTO> postDTO = new List<Model.WallPostDTO>();
+            HttpClient client = api.Initial();
+            var res = await client.GetAsync("GetAllPosts");
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                postDTO = JsonConvert.DeserializeObject<List<Model.WallPostDTO>>(response);
+            }
+            return postDTO;
         }
     }
 }
