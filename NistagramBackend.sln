@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NistagramUtils", "..\Nistag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NistagramSQLConnection", "..\NistagramSQLConnection\NistagramSQLConnection.csproj", "{D8537872-164D-4FE4-A79C-F74DE177EC65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NistagramOfflineAPI", "..\NistagramOfflineAPI\NistagramOfflineAPI.csproj", "{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{D8537872-164D-4FE4-A79C-F74DE177EC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8537872-164D-4FE4-A79C-F74DE177EC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8537872-164D-4FE4-A79C-F74DE177EC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
