@@ -1,28 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NistagramUtils.Offline.Post;
-using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore;
-using NistagramSQLConnection.Data;
-using NistagramBackend.Services.Intefrace;
 using NistagramBackend.Services;
-using NistagramSQLConnection.Service.Interface;
+using NistagramBackend.Services.Intefrace;
+using NistagramSQLConnection.Data;
 using NistagramSQLConnection.Service;
+using NistagramSQLConnection.Service.Interface;
+using NistagramUtils.Mapper;
+using System;
 
 namespace NistagramBackend
 {
     public class Startup
     {
+        readonly private string _myAllow = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,12 +32,31 @@ namespace NistagramBackend
             services.AddScoped<IUserService, UserServiceImpl>();
             services.AddScoped<IIndexService, IndexServiceImpl>();
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new SimpleMapper());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 11)));
             });
-            
+
             services.AddMvc();
+
+            services.AddCors(option =>
+            {
+                option.AddPolicy(name: _myAllow, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200/")
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -61,6 +76,8 @@ namespace NistagramBackend
             }
 
             app.UseRouting();
+
+            app.UseCors(_myAllow);
 
             app.UseAuthorization();
 

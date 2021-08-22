@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NistagramBackend.Services.Intefrace;
+﻿using NistagramBackend.Services.Intefrace;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
+using System.Collections.Generic;
 
 namespace NistagramBackend.Services
 {
@@ -18,10 +15,10 @@ namespace NistagramBackend.Services
             _userService = userService;
         }
 
-        public List<UserDTO> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
             List<User> users = _userService.FindUser(0, null, null);
-            return users.ConvertAll(x=>new UserDTO(x));
+            return users.ConvertAll(x => new UserDto(x));
         }
 
     }
