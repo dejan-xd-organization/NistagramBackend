@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Register;
+using System;
 
 namespace NistagramBackend.Controllers
 {
@@ -30,9 +26,9 @@ namespace NistagramBackend.Controllers
 
         [HttpPost]
         [Route("/[action]")]
-        public Object Registration(RegistrationDTO regDTO)
+        public Object Registration(RegistrationDto regDTO)
         {
-            LoginResponseDTO lrDTO = new LoginResponseDTO();
+            LoginResponseDto lrDTO = new LoginResponseDto();
             regDTO.dateOfRegistration = DateTime.Now;
             var mapperUser = _mapper.Map<User>(regDTO);
             bool response = _iUserService.RegistrationUser(mapperUser);
@@ -44,7 +40,7 @@ namespace NistagramBackend.Controllers
             {
                 lrDTO.status = "registration_success";
             }
-            return JsonConvert.SerializeObject(lrDTO); ;
+            return JsonConvert.SerializeObject(lrDTO);
         }
     }
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NistagramBackend.Services.Intefrace;
-using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
-using NistagramUtils.Offline.Post;
-using NistagramUtils.Offline.Post.Model;
+using System;
+using System.Collections.Generic;
 
 namespace NistagramBackend.Controllers
 {
@@ -31,20 +26,14 @@ namespace NistagramBackend.Controllers
             List<String> publicOptions = new List<string>();
             publicOptions.Add("en");
             publicOptions.Add("30");
-            newOption.Add("options",publicOptions);
+            newOption.Add("options", publicOptions);
             return newOption;
         }
 
-        [HttpGet]
-        [Route("/[action]")]
-        public HashSet<OfflinePost> GetAllOfflinePosts()
-        {
-            return new HashSet<OfflinePost>(0);
-        }
 
         [HttpGet]
         [Route("/[action]")]
-        public List<UserDTO> GetAllNewUsers()
+        public List<UserDto> GetAllNewUsers()
         {
             return _indexService.GetAllUsers();
         }

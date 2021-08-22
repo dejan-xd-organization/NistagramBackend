@@ -1,25 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using NistagramUtils.Offline.Post;
-using Microsoft.EntityFrameworkCore;
-using MySql.EntityFrameworkCore;
-using NistagramSQLConnection.Data;
-using NistagramBackend.Services.Intefrace;
 using NistagramBackend.Services;
-using NistagramSQLConnection.Service.Interface;
+using NistagramBackend.Services.Intefrace;
+using NistagramSQLConnection.Data;
 using NistagramSQLConnection.Service;
-using AutoMapper;
+using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.Mapper;
+using System;
 
 namespace NistagramBackend
 {
@@ -43,6 +36,7 @@ namespace NistagramBackend
             {
                 mc.AddProfile(new SimpleMapper());
             });
+
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
