@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NistagramBackend.Model
 {
-    public class WallPostDTO
+    public class WallPostDto
     {
         public long id { get; set; }
 
