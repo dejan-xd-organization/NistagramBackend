@@ -7,7 +7,7 @@ namespace NistagramBackend.Helper
     {
         public HttpClient Initial()
         {
-            string uri = "http://localhost:5001/";
+            string uri = "http://localhost:48837/";
             var client = new HttpClient();
             client.BaseAddress = new Uri(uri);
             return client;
