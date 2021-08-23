@@ -9,8 +9,9 @@ using System;
 
 namespace NistagramBackend.Controllers
 {
-    [Route("[controller]")]
+    
     [ApiController]
+    [Route("[controller]")]
     public class RegistrationController : ControllerBase
     {
 

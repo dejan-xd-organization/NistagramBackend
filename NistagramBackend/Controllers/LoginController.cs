@@ -35,7 +35,7 @@ namespace NistagramBackend.Controllers
 
             JwtService.AddActiveUser(jwt, user);
 
-            lrDTO.status = "SUCCESS=succes";
+            lrDTO.status = "SUCCESS";
             lrDTO.jwt = jwt;
             lrDTO.userDTO = new UserDto(user);
 
