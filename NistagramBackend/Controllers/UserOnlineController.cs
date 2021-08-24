@@ -1,24 +1,42 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using NistagramBackend.Helper;
+using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.WallPost;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NistagramBackend.Helper;
-using NistagramBackend.Model;
-using NistagramUtils.DTO;
 
 namespace NistagramBackend.Controllers
 {
-    
+
     [ApiController]
     [Route("[controller]")]
     public class UserOnlineController : ControllerBase
     {
-        readonly OfflineApi api = new OfflineApi();
+        readonly ApiGateway api = new ApiGateway();
+
+        // WALL POSTS //
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<List<WallPostDto>> GetAllOnlineWallPosts()
+        {
+            List<WallPostDto> postDTO = new List<WallPostDto>();
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetAllWallPosts");
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                postDTO = JsonConvert.DeserializeObject<List<WallPostDto>>(response);
+            }
+            return postDTO;
+        }
+
+
+        // FOLLOWERS //
 
         [HttpPost]
         [Route("/[action]")]

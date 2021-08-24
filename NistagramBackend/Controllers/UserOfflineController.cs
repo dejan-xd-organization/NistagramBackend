@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using NistagramBackend.Helper;
 using NistagramUtils.DTO;
-using NistagramUtils.DTO.WallPost;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,7 +12,7 @@ namespace NistagramBackend.Controllers
     [Route("[controller]")]
     public class UserOfflineController : ControllerBase
     {
-        readonly OfflineApi api = new OfflineApi();
+        readonly ApiGateway api = new ApiGateway();
 
         [HttpGet]
         [Route("/[action]")]
@@ -47,17 +46,16 @@ namespace NistagramBackend.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<List<WallPostDto>> GetAllPosts()
+        public async Task<string> GetAllOfflineWallPosts()
         {
-            List<WallPostDto> postDTO = new List<WallPostDto>();
             HttpClient client = api.InitialOffline();
-            var res = await client.GetAsync("GetAllPosts");
+            var res = await client.GetAsync("GetAllWallPosts");
+            string response = "";
             if (res.IsSuccessStatusCode)
             {
-                var response = res.Content.ReadAsStringAsync().Result;
-                postDTO = JsonConvert.DeserializeObject<List<WallPostDto>>(response);
+                response = res.Content.ReadAsStringAsync().Result;
             }
-            return postDTO;
+            return response;
         }
     }
 }

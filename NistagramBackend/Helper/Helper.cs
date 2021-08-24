@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Configuration;
 using System.Net.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace NistagramBackend.Helper
 {
-    public class OfflineApi
+    public class ApiGateway
     {
 
         public HttpClient InitialOffline()
