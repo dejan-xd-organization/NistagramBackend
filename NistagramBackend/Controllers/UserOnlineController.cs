@@ -54,21 +54,5 @@ namespace NistagramBackend.Controllers
             return true;
         }
 
-        //private async Task<bool> SaveJWT(LoginResponseDTO lrDTO)
-        //{
-        //    HttpClient client = api.Initial();
-
-        //    CreateNewSession cns = new CreateNewSession(lrDTO.user, lrDTO.jwt);
-        //    var json = JsonConvert.SerializeObject(cns);
-        //    var data = new StringContent(json, Encoding.UTF8, "application/json");
-        //    var res = await client.PostAsync("Session/add-online-user", data);
-
-        //    if (res.IsSuccessStatusCode)
-        //    {
-        //        var response = res.Content.ReadAsStringAsync().Result;
-        //        Console.WriteLine(response);
-        //    }
-        //    return true;
-        //}
     }
 }
