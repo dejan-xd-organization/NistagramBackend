@@ -22,17 +22,50 @@ namespace NistagramBackend.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<List<WallPostDto>> GetAllOnlineWallPosts()
+        public async Task<string> GetAllOnlineWallPosts()
         {
-            List<WallPostDto> postDTO = new List<WallPostDto>();
             HttpClient client = api.InitialOnline();
             var res = await client.GetAsync("GetAllWallPosts");
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+        }
+
+        [HttpPut]
+        [Route("/[action]")]
+        public async Task<bool> Like(ReactionDto reactionDto)
+        {
+            HttpClient client = api.InitialOnline();
+            reactionDto.type = true;
+            var json = JsonConvert.SerializeObject(reactionDto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PutAsync("PutReaction", data);
             if (res.IsSuccessStatusCode)
             {
                 var response = res.Content.ReadAsStringAsync().Result;
-                postDTO = JsonConvert.DeserializeObject<List<WallPostDto>>(response);
+                return true;
             }
-            return postDTO;
+            return false;
+        }
+
+        [HttpPut]
+        [Route("/[action]")]
+        public async Task<bool> Dislike(ReactionDto reactionDto)
+        {
+            HttpClient client = api.InitialOnline();
+            reactionDto.type = false;
+            var json = JsonConvert.SerializeObject(reactionDto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PutAsync("PutReaction", data);
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                return true;
+            }
+            return false;
         }
 
 
