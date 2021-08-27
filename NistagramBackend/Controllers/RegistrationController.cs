@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.DTO.Register;
-using System;
 
 namespace NistagramBackend.Controllers
 {

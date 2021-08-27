@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramBackend.Helper;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.WallPost;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NistagramBackend.Controllers
 {
@@ -68,6 +67,23 @@ namespace NistagramBackend.Controllers
             return false;
         }
 
+        [HttpPost]
+        [Route("/[action]")]
+        public async Task<string> NewPost(PostDto postDt)
+        {
+            HttpClient client = api.InitialOnline();
+            var json = JsonConvert.SerializeObject(postDt);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PostAsync("NewPost", data);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+                //Console.WriteLine(response);
+            }
+            return response;
+        }
+
 
         // FOLLOWERS //
 
@@ -85,6 +101,34 @@ namespace NistagramBackend.Controllers
                 Console.WriteLine(response);
             }
             return true;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> GetAllFollowers(string id, int page)
+        {
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetAllFollowers?id=" + id + "&page=" + page);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> GetNewFollowings(string id, int page)
+        {
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetNewFollowings?id=" + id + "&page=" + page);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
         }
 
     }

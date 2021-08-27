@@ -14,16 +14,13 @@
 
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NistagramSQLConnection" Version="1.0.9" />
+		<PackageReference Include="NistagramUtils" Version="1.0.8" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
 
 		<!--<ItemGroup>
 			<ProjectReference Include="..\NistagramSQLConnection\NistagramSQLConnection.csproj" />
 			<ProjectReference Include="..\NistagramUtils\NistagramUtils.csproj" />
 		</ItemGroup>-->
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\NistagramSQLConnection\NistagramSQLConnection.csproj" />
-	  <ProjectReference Include="..\..\NistagramUtils\NistagramUtils.csproj" />
 	</ItemGroup>
 </Project>
