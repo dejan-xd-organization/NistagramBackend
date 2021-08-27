@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using NistagramBackend.Services.Intefrace;
 using NistagramUtils.DTO;
-using System;
-using System.Collections.Generic;
 
 namespace NistagramBackend.Controllers
 {
