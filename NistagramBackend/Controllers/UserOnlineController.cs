@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramBackend.Helper;
 using NistagramUtils.DTO.Follower;
+using NistagramUtils.DTO.User;
 using NistagramUtils.DTO.WallPost;
 
 namespace NistagramBackend.Controllers
@@ -129,6 +130,43 @@ namespace NistagramBackend.Controllers
                 response = res.Content.ReadAsStringAsync().Result;
             }
             return response;
+        }
+
+
+        // USER
+
+        [HttpPut]
+        [Route("/[action]")]
+        public async Task<string> UpdateUser(UpdateUserDto updateUserDto)
+        {
+            HttpClient client = api.InitialOnline();
+            var json = JsonConvert.SerializeObject(updateUserDto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PutAsync("UpdateUser", data);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+
+        }
+
+        [HttpPut]
+        [Route("/[action]")]
+        public async Task<string> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            HttpClient client = api.InitialOnline();
+            var json = JsonConvert.SerializeObject(changePasswordDto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PutAsync("ChangePassword", data);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+
         }
 
     }
