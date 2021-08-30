@@ -106,10 +106,10 @@ namespace NistagramBackend.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<string> GetAllFollowers(string id, int page)
+        public async Task<string> GetMyFollowers(string id, int page)
         {
             HttpClient client = api.InitialOnline();
-            var res = await client.GetAsync("GetAllFollowers?id=" + id + "&page=" + page);
+            var res = await client.GetAsync("GetMyFollowers?id=" + id + "&page=" + page);
             string response = "";
             if (res.IsSuccessStatusCode)
             {
@@ -120,10 +120,39 @@ namespace NistagramBackend.Controllers
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<string> GetNewFollowings(string id, int page)
+        public async Task<string> GetMyFollowing(string id, int page)
         {
             HttpClient client = api.InitialOnline();
-            var res = await client.GetAsync("GetNewFollowings?id=" + id + "&page=" + page);
+            var res = await client.GetAsync("GetMyFollowing?id=" + id + "&page=" + page);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+        }
+
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> GetNewFollowers(string id)
+        {
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetNewFollowers?id=" + id);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> GetNewFollowings(string id)
+        {
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetNewFollowings?id=" + id);
             string response = "";
             if (res.IsSuccessStatusCode)
             {
@@ -167,6 +196,20 @@ namespace NistagramBackend.Controllers
             }
             return response;
 
+        }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> GetMyOnlineWallPosts(string id)
+        {
+            HttpClient client = api.InitialOnline();
+            var res = await client.GetAsync("GetMyOnlineWallPosts?id=" + id);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
         }
 
     }
