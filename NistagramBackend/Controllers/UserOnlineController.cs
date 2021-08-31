@@ -45,7 +45,6 @@ namespace NistagramBackend.Controllers
             var res = await client.PutAsync("PutReaction", data);
             if (res.IsSuccessStatusCode)
             {
-                var response = res.Content.ReadAsStringAsync().Result;
                 return true;
             }
             return false;
@@ -62,7 +61,6 @@ namespace NistagramBackend.Controllers
             var res = await client.PutAsync("PutReaction", data);
             if (res.IsSuccessStatusCode)
             {
-                var response = res.Content.ReadAsStringAsync().Result;
                 return true;
             }
             return false;
@@ -80,7 +78,6 @@ namespace NistagramBackend.Controllers
             if (res.IsSuccessStatusCode)
             {
                 response = res.Content.ReadAsStringAsync().Result;
-                //Console.WriteLine(response);
             }
             return response;
         }
