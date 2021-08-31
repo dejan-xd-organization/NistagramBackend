@@ -21,5 +21,13 @@ namespace NistagramBackend.Helper
             client.BaseAddress = new Uri(uri);
             return client;
         }
+
+        public HttpClient InitialChat()
+        {
+            string uri = "http://localhost:56846";
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(uri);
+            return client;
+        }
     }
 }
