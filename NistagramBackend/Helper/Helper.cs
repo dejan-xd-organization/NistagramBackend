@@ -8,17 +8,17 @@ namespace NistagramBackend.Helper
 
         public HttpClient InitialOffline()
         {
-            string uri = "http://localhost:48837/";
+            string link = "http://localhost:48837/";
             var client = new HttpClient();
-            client.BaseAddress = new Uri(uri);
+            client.BaseAddress = new Uri(link);
             return client;
         }
 
         public HttpClient InitialOnline()
         {
-            string uri = "http://localhost:6709";
+            string link = "http://localhost:6709";
             var client = new HttpClient();
-            client.BaseAddress = new Uri(uri);
+            client.BaseAddress = new Uri(link);
             return client;
         }
     }
