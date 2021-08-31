@@ -1,5 +1,5 @@
-﻿using NistagramUtils.DTO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NistagramUtils.DTO;
 
 namespace NistagramBackend.Services.Intefrace
 {

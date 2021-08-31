@@ -3,13 +3,22 @@ using System.Net.Http;
 
 namespace NistagramBackend.Helper
 {
-    public class OfflineApi
+    public class ApiGateway
     {
-        public HttpClient Initial()
+
+        public HttpClient InitialOffline()
         {
-            string uri = "http://localhost:5001/";
+            string link = "http://localhost:48837/";
             var client = new HttpClient();
-            client.BaseAddress = new Uri(uri);
+            client.BaseAddress = new Uri(link);
+            return client;
+        }
+
+        public HttpClient InitialOnline()
+        {
+            string link = "http://localhost:6709";
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(link);
             return client;
         }
     }

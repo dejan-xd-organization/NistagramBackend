@@ -1,8 +1,8 @@
-﻿using NistagramBackend.Services.Intefrace;
+﻿using System.Collections.Generic;
+using NistagramBackend.Services.Intefrace;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
-using System.Collections.Generic;
 
 namespace NistagramBackend.Services
 {

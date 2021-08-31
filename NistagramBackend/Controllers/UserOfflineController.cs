@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NistagramBackend.Helper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using NistagramBackend.Helper;
+using NistagramUtils.DTO;
 
 namespace NistagramBackend.Controllers
 {
@@ -11,51 +12,50 @@ namespace NistagramBackend.Controllers
     [Route("[controller]")]
     public class UserOfflineController : ControllerBase
     {
-        readonly OfflineApi api = new OfflineApi();
+        readonly ApiGateway api = new ApiGateway();
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<List<Model.UserDto>> FilterUser(string filter)
+        public async Task<List<UserOnlineJsonDto>> FilterUser(string filter)
         {
-            List<Model.UserDto> userDTO = new List<Model.UserDto>();
-            HttpClient client = api.Initial();
+            List<UserOnlineJsonDto> userDTO = new List<UserOnlineJsonDto>();
+            HttpClient client = api.InitialOffline();
             var res = await client.GetAsync("FilterUser?filter=" + filter);
             if (res.IsSuccessStatusCode)
             {
                 var response = res.Content.ReadAsStringAsync().Result;
-                userDTO = JsonConvert.DeserializeObject<List<Model.UserDto>>(response);
+                userDTO = JsonConvert.DeserializeObject<List<UserOnlineJsonDto>>(response);
             }
             return userDTO;
         }
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<List<Model.UserDto>> FindNewUsers()
+        public async Task<List<UserOnlineJsonDto>> FindNewUsers()
         {
-            List<Model.UserDto> userDTO = new List<Model.UserDto>();
-            HttpClient client = api.Initial();
+            List<UserOnlineJsonDto> userDTO = new List<UserOnlineJsonDto>();
+            HttpClient client = api.InitialOffline();
             var res = await client.GetAsync("FindNewUsers");
             if (res.IsSuccessStatusCode)
             {
                 var response = res.Content.ReadAsStringAsync().Result;
-                userDTO = JsonConvert.DeserializeObject<List<Model.UserDto>>(response);
+                userDTO = JsonConvert.DeserializeObject<List<UserOnlineJsonDto>>(response);
             }
             return userDTO;
         }
 
         [HttpGet]
         [Route("/[action]")]
-        public async Task<List<Model.WallPostDto>> GetAllPosts()
+        public async Task<string> GetAllOfflineWallPosts()
         {
-            List<Model.WallPostDto> postDTO = new List<Model.WallPostDto>();
-            HttpClient client = api.Initial();
-            var res = await client.GetAsync("GetAllPosts");
+            HttpClient client = api.InitialOffline();
+            var res = await client.GetAsync("GetAllWallPosts");
+            string response = "";
             if (res.IsSuccessStatusCode)
             {
-                var response = res.Content.ReadAsStringAsync().Result;
-                postDTO = JsonConvert.DeserializeObject<List<Model.WallPostDto>>(response);
+                response = res.Content.ReadAsStringAsync().Result;
             }
-            return postDTO;
+            return response;
         }
     }
 }

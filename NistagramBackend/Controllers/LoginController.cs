@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramSQLConnection.Model;
 using NistagramSQLConnection.Service.Interface;
 using NistagramUtils.DTO;
 using NistagramUtils.JWT;
-using System;
 
 namespace NistagramBackend.Controllers
 {
@@ -35,7 +35,7 @@ namespace NistagramBackend.Controllers
 
             JwtService.AddActiveUser(jwt, user);
 
-            lrDTO.status = "SUCCESS=succes";
+            lrDTO.status = "SUCCESS";
             lrDTO.jwt = jwt;
             lrDTO.userDTO = new UserDto(user);
 
