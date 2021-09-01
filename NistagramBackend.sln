@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NistagramSQLConnection", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NistagramOfflineAPI", "..\NistagramOfflineAPI\NistagramOfflineAPI.csproj", "{D5F864E1-1D46-4DCF-9547-2A2B6BDA5846}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NistagramOnlineAPI", "..\NistagramOnlineAPI\NistagramOnlineAPI.csproj", "{8DCDDDD6-9009-498A-B70F-9765D3A920FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NistagramOnlineAPI", "..\NistagramOnlineAPI\NistagramOnlineAPI.csproj", "{8DCDDDD6-9009-498A-B70F-9765D3A920FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NistagramChatAPI", "..\NistagramChatAPI\NistagramChatAPI.csproj", "{68F012A0-7928-44EE-B119-61C4227C38D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{8DCDDDD6-9009-498A-B70F-9765D3A920FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DCDDDD6-9009-498A-B70F-9765D3A920FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DCDDDD6-9009-498A-B70F-9765D3A920FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F012A0-7928-44EE-B119-61C4227C38D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F012A0-7928-44EE-B119-61C4227C38D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F012A0-7928-44EE-B119-61C4227C38D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F012A0-7928-44EE-B119-61C4227C38D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

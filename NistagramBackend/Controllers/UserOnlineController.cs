@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NistagramBackend.Helper;
+using NistagramUtils.DTO;
 using NistagramUtils.DTO.Follower;
 using NistagramUtils.DTO.User;
 using NistagramUtils.DTO.WallPost;
@@ -99,6 +100,23 @@ namespace NistagramBackend.Controllers
                 Console.WriteLine(response);
             }
             return true;
+        }
+
+        [HttpPost]
+        [Route("/[action]")]
+        public async Task<UserOnlineJsonDto> AddFollowing(NewFollowingDto newFollowingDto)
+        {
+            HttpClient client = api.InitialOnline();
+            var json = JsonConvert.SerializeObject(newFollowingDto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var res = await client.PostAsync("AddFollowing", data);
+            UserOnlineJsonDto userDTO = new UserOnlineJsonDto();
+            if (res.IsSuccessStatusCode)
+            {
+                var response = res.Content.ReadAsStringAsync().Result;
+                userDTO = JsonConvert.DeserializeObject<UserOnlineJsonDto>(response);
+            }
+            return userDTO;
         }
 
         [HttpGet]
