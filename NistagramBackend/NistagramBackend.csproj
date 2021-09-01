@@ -6,16 +6,25 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Media\profile6.jpg\**" />
+	  <Content Remove="Media\profile6.jpg\**" />
+	  <EmbeddedResource Remove="Media\profile6.jpg\**" />
+	  <None Remove="Media\profile6.jpg\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="10.1.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.9">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="5.0.9" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="5.0.0" />
 
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-		<PackageReference Include="NistagramSQLConnection" Version="1.0.12" />
-		<PackageReference Include="NistagramUtils" Version="1.0.11" />
+		<PackageReference Include="NistagramSQLConnection" Version="1.0.13" />
+		<PackageReference Include="NistagramUtils" Version="1.0.12" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
 
 		<!--<ItemGroup>

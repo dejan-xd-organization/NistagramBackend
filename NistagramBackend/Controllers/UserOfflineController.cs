@@ -57,5 +57,19 @@ namespace NistagramBackend.Controllers
             }
             return response;
         }
+
+        [HttpGet]
+        [Route("/[action]")]
+        public async Task<string> FindUserById(long id)
+        {
+            HttpClient client = api.InitialOffline();
+            var res = await client.GetAsync("FindUserById?id=" + id);
+            string response = "";
+            if (res.IsSuccessStatusCode)
+            {
+                response = res.Content.ReadAsStringAsync().Result;
+            }
+            return response;
+        }
     }
 }
